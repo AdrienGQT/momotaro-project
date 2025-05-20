@@ -1,0 +1,25 @@
+.frame{
+  width: 500px;
+  position: relative;
+}
+
+.bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.item1{
+  position: absolute;
+  top: 47px;
+  left: -106px;
+  width: 100%;
+}
+
+.item2{
+  position: absolute;
+  top: 44px;
+  left: 92px;
+  width: 100%;
+}
