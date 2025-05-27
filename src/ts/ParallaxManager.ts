@@ -13,7 +13,7 @@ export class ParallaxManager {
     this.sizes = sizes;
     
     // Can use the method directly since it's an arrow function (bound to this)
-    this.scene.addEventListener("mousemove", this.handleMouseMove);
+    window.addEventListener("mousemove", this.handleMouseMove);
   }
   
   handleMouseMove = (e: MouseEvent) => {
@@ -28,6 +28,6 @@ export class ParallaxManager {
   };
   
   destroy = () => {
-    this.scene.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mousemove', this.handleMouseMove);
   }
 }
