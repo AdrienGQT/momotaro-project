@@ -3,27 +3,31 @@ import { gsap } from "gsap";
 export class ParallaxManager {
   scene: HTMLElement;
   elementsToUpdate: NodeListOf<HTMLImageElement>;
-
-  constructor(sizes : { width?: number; height?: number }) {
+  private sizes: { width?: number; height?: number };
+  
+  constructor(sizes: { width?: number; height?: number }, scene: HTMLElement) {
     console.log("ParallaxManager Initialized");
-
-    this.scene = document.querySelector(".scene") as HTMLElement;
+    
+    this.scene = scene;
     this.elementsToUpdate = this.scene.querySelectorAll(".sceneItem");
-
-    this.createParallax(sizes);
+    this.sizes = sizes;
+    
+    // Can use the method directly since it's an arrow function (bound to this)
+    this.scene.addEventListener("mousemove", this.handleMouseMove);
   }
-
-  createParallax = (sizes : { width?: number; height?: number }) => {
-    window.addEventListener("mousemove", (e: MouseEvent) => {
-      console.log(e.clientX);
-      this.elementsToUpdate.forEach((element) => {
-        const strength: number = Number(element.dataset.perspective) + 1;
-        console.log(strength);
-        gsap.to(element, {
-          x: ((e.clientX - (sizes.width! / 2)) / 1000) * -strength,
-          y: ((e.clientY - (sizes.height!) / 2) / 1000) * -strength,
-        });
+  
+  handleMouseMove = (e: MouseEvent) => {
+    this.elementsToUpdate.forEach((element) => {
+      const strength: number = Number(element.dataset.perspective) + 1;
+      console.log(strength);
+      gsap.to(element, {
+        x: ((e.clientX - (this.sizes.width! / 2)) / 1000) * -strength,
+        y: ((e.clientY - (this.sizes.height! / 2)) / 1000) * -strength,
       });
     });
   };
+  
+  destroy = () => {
+    this.scene.removeEventListener('mousemove', this.handleMouseMove);
+  }
 }
