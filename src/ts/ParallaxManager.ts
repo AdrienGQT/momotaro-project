@@ -19,7 +19,6 @@ export class ParallaxManager {
   handleMouseMove = (e: MouseEvent) => {
     this.elementsToUpdate.forEach((element) => {
       const strength: number = Number(element.dataset.perspective) + 1;
-      console.log(strength);
       gsap.to(element, {
         x: ((e.clientX - (this.sizes.width! / 2)) / 1000) * -strength,
         y: ((e.clientY - (this.sizes.height! / 2)) / 1000) * -strength,
